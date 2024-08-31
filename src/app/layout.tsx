@@ -1,12 +1,23 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/toaster";
+import Navbar from "@/components/Navbar/Navbar";
+import dynamic from "next/dynamic";
 
-const inter = Inter({ subsets: ["latin"] });
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+const ProgressBar = dynamic(() => import("@/components/ProgressBar"), {
+  ssr: false,
+});
 
 export const metadata: Metadata = {
   title: "R.A.Y Victory",
-  description: "Welcome to the R.A.Y Victory Website.",
+  description: "R.A.Y Victory",
 };
 
 export default function RootLayout({
@@ -16,7 +27,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable
+        )}
+      >
+        <ProgressBar />
+        <Navbar />
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }

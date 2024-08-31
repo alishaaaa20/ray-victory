@@ -1,5 +1,5 @@
-import Image from "next/image";
+import React from "react";
 
-export default function Home() {
-  return <div>Welcome to the R.A.Y Victory Website.</div>;
+export default function page() {
+  return <main className="container mx-auto">Hello World</main>;
 }

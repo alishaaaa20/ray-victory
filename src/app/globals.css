@@ -86,3 +86,15 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Custom underline animation */
+a:after {
+  content: "";
+  display: block;
+  transform-origin: center;
+  transform: scaleX(0);
+}
+
+a:hover:after {
+  transform: scaleX(1);
+}
