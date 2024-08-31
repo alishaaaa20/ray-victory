@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { menuItems } from "./menus";
 import { H2, H3, H4 } from "../Typography";
+import { Button } from "../ui/button";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,18 +15,18 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow-sm">
+    <nav className="shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
         <div className="flex justify-between items-center h-20">
           <div className="flex-shrink-0">
-            <Link href="/" legacyBehavior>
+            <Link href="/">
               <H2 className=" font-bold hover:text-primary transition duration-300">
                 R.<span className="text-primary">A</span>.Y Vic
                 <span className="text-primary">to</span>ry
               </H2>
             </Link>
           </div>
-          <div className="hidden md:flex md:space-x-8">
+          <div className="hidden md:flex md:space-x-8 items-center">
             {menuItems.map((item) => (
               <Link href={item.href} key={item.name}>
                 <H4
@@ -39,6 +40,15 @@ const Navbar = () => {
                 </H4>
               </Link>
             ))}
+            {/* Login Button */}
+            <Link href="/login">
+              <Button
+                variant={"outline"}
+                className="ml-4 px-4 py-2 text-md font-medium border border-primary text-primary rounded-md hover:bg-primary hover:text-black transition duration-300"
+              >
+                Login
+              </Button>
+            </Link>
           </div>
           <div className="-mr-2 flex md:hidden">
             <button
@@ -84,6 +94,7 @@ const Navbar = () => {
         </div>
       </div>
 
+      {/* Mobile Menu */}
       <div
         className={`${isOpen ? "block" : "hidden"} md:hidden`}
         id="mobile-menu"
@@ -102,6 +113,12 @@ const Navbar = () => {
               </H3>
             </Link>
           ))}
+          {/* Mobile Login Button */}
+          <Link href="/login">
+            <button className="w-full px-4 py-2 mt-2 bg-primary text-white rounded-md hover:bg-blue-600 transition duration-300">
+              Login
+            </button>
+          </Link>
         </div>
       </div>
     </nav>
