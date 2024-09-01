@@ -1,28 +1,42 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { menuItems } from "./menus";
 import { H2, H3, H4 } from "../Typography";
 import { Button } from "../ui/button";
+import {
+  useMotionTemplate,
+  useMotionValue,
+  motion,
+  animate,
+} from "framer-motion";
+
+const COLORS_TOP = ["#fda403"];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const color = useMotionValue(COLORS_TOP[0]);
+
+  const backgroundImage = useMotionTemplate`radial-gradient(125% 125% at 50% 0%, #020617 80%, ${color})`;
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <nav className="absolute w-full z-10">
-      {" "}
-      {/* Ensure navbar is absolute and on top */}
+    <motion.nav
+      style={{
+        backgroundImage,
+      }}
+      className="sticky top-0 z-10 backdrop-blur-md"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
         <div className="flex justify-between items-center h-20">
           <div className="flex-shrink-0">
             <Link href="/">
-              <H2 className="font-bold hover:text-primary transition  text-white duration-300">
+              <H2 className="font-bold hover:text-primary transition duration-300 text-white">
                 R.<span className="text-primary">A</span>.Y Vic
                 <span className="text-primary">to</span>ry
               </H2>
@@ -32,7 +46,7 @@ const Navbar = () => {
             {menuItems.map((item) => (
               <Link href={item.href} key={item.name}>
                 <H4
-                  className={`relative hover:text-primary text-white transition duration-300 after:absolute after:left-0 after:bottom-[-3px] after:h-[2px] after:w-1/2 after:bg-primary after:transition-transform after:duration-300 after:scale-x-0 hover:after:scale-x-100 ${
+                  className={`relative text-white hover:text-primary transition duration-300 after:absolute after:left-0 after:bottom-[-3px] after:h-[2px] after:w-1/2 after:bg-primary after:transition-transform after:duration-300 after:scale-x-0 hover:after:scale-x-100 ${
                     pathname === item.href
                       ? "text-primary after:scale-x-100 font-semibold"
                       : ""
@@ -56,7 +70,7 @@ const Navbar = () => {
             <button
               onClick={toggleMenu}
               type="button"
-              className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-white hover:text-gray-400 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+              className="bg-primary inline-flex items-center justify-center p-2 rounded-md text-white hover:text-primary hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white"
               aria-controls="mobile-menu"
               aria-expanded="false"
             >
@@ -104,7 +118,7 @@ const Navbar = () => {
           {menuItems.map((item) => (
             <Link href={item.href} key={item.name}>
               <H3
-                className={`relative hover:text-primary transition duration-300 block px-3 py-2 rounded-md text-base font-medium after:absolute after:left-0 after:bottom-[-3px] after:h-[2px] after:w-1/2 after:bg-primary after:transition-transform after:duration-300 after:scale-x-0 hover:after:scale-x-100 ${
+                className={`relative hover:text-primary transition duration-300 block px-3 py-2 rounded-md text-base font-medium after:absolute after:left-3 after:bottom-[-3px] after:h-[2px] after:w-10 after:bg-primary after:transition-transform after:duration-300 after:scale-x-0 hover:after:scale-x-100 ${
                   pathname === item.href
                     ? "text-primary after:scale-x-100 font-semibold"
                     : ""
@@ -114,15 +128,18 @@ const Navbar = () => {
               </H3>
             </Link>
           ))}
-          {/* Mobile Login Button */}
+
           <Link href="/login">
-            <button className="w-full px-4 py-2 mt-2 bg-primary text-white rounded-md hover:bg-blue-600 transition duration-300">
+            <Button
+              variant={"outline"}
+              className="w-full px-4 py-2 mt-2 text-primary text-lg font-medium rounded-md hover:bg-primary border border-primary bg-white transition duration-300"
+            >
               Login
-            </button>
+            </Button>
           </Link>
         </div>
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 
