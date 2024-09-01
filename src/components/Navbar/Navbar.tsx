@@ -15,12 +15,14 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="shadow-sm">
+    <nav className="absolute w-full z-10">
+      {" "}
+      {/* Ensure navbar is absolute and on top */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
         <div className="flex justify-between items-center h-20">
           <div className="flex-shrink-0">
             <Link href="/">
-              <H2 className=" font-bold hover:text-primary transition duration-300">
+              <H2 className="font-bold hover:text-primary transition  text-white duration-300">
                 R.<span className="text-primary">A</span>.Y Vic
                 <span className="text-primary">to</span>ry
               </H2>
@@ -30,7 +32,7 @@ const Navbar = () => {
             {menuItems.map((item) => (
               <Link href={item.href} key={item.name}>
                 <H4
-                  className={`relative hover:text-primary transition duration-300 after:absolute after:left-0 after:bottom-[-3px] after:h-[2px] after:w-1/2 after:bg-primary after:transition-transform after:duration-300 after:scale-x-0 hover:after:scale-x-100 ${
+                  className={`relative hover:text-primary text-white transition duration-300 after:absolute after:left-0 after:bottom-[-3px] after:h-[2px] after:w-1/2 after:bg-primary after:transition-transform after:duration-300 after:scale-x-0 hover:after:scale-x-100 ${
                     pathname === item.href
                       ? "text-primary after:scale-x-100 font-semibold"
                       : ""
@@ -93,7 +95,6 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-
       {/* Mobile Menu */}
       <div
         className={`${isOpen ? "block" : "hidden"} md:hidden`}
